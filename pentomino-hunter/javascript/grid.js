@@ -14,6 +14,9 @@ var xEnd;
 var gCanvasElement;
 var gDrawingContext;
 
+var xr;
+var yr;
+
 var red        = "#B40404";
 var green      = "#04B404";
 var blue       = "#2E64FE";
@@ -37,6 +40,55 @@ function Cell(row, column) {
     this.column = column;
 }
 
+
+// =======================================================================================
+
+
+//========================================================================================
+
+function Location(a,b) {
+    this.x = a;
+    this.y = b;
+}
+
+// =======================================================================================
+// generates a random point on the canvas
+function randomPointGenerator(){
+    xr = Math.floor(Math.random()*(xEnd -(3*kStep)));
+    yr = Math.floor(Math.random()*yEnd);
+    if (yr>(yEnd-(3*kStep))) {
+        yr = yr -(3*kStep);
+    }
+    xr = Math.floor(xr/kStep) * kStep;
+    yr = Math.floor(yr/kStep) * kStep;
+
+    //pentomino style 1
+    c1 = new Location(xr,yr);
+    c2 = new Location(xr+kStep,yr);
+    c3 = new Location(xr,yr+kStep);
+    c4 = new Location(xr+kStep,yr+kStep);
+    c5 = new Location(xr,yr+(2*kStep));
+}
+
+// =======================================================================================
+// generates the first cell for the random Pentomino
+function initialCellGenerator(){
+    randomPointGenerator();
+    gDrawingContext.beginPath();
+
+    // Pentomino Color
+    gDrawingContext.fillStyle = blue;
+    //rectangle location
+
+    gDrawingContext.fillRect(c1.x+1,           c1.y+1,          kStep-1, kStep-1);
+    gDrawingContext.fillRect(c2.x+1,           c2.y+1,    kStep-1, kStep-1);
+    gDrawingContext.fillRect(c3.x+1,     c3.y+1,    kStep-1, kStep-1);
+    gDrawingContext.fillRect(c4.x+1, c4.y+1,          kStep-1, kStep-1);
+    gDrawingContext.fillRect(c5.x+1,     c5.y+1,          kStep-1, kStep-1);
+
+    //gDrawingContext.fill();
+    gDrawingContext.closePath();
+}
 // =======================================================================================
 function getCursorPosition(e) {
     /* returns Cell with .row and .column properties */
@@ -88,22 +140,7 @@ function vitruviaOnClick(e) {
     bleep.play();
     
     fillColor  = document.getElementById('stampColor').value;
-    
-   
-/*    
-    // check if new color selection
-    if (row > kBoardWidth) {    
-        if ( 0 <= column                  && column <= kStep              ) { fillColor = red;        }
-        if ( kStep + kStep/2 <= column    && column <= 2*kStep + kStep/2  ) { fillColor = green;      }
-        if ( 3*kStep <= column            && column <= 4*kStep            ) { fillColor = blue;       }
-        if ( 4*kStep  + kStep/2 <= column && column <= 5*kStep  + kStep/2 ) { fillColor = yellow;     }
-        if ( 6*kStep <= column            && column <= 7*kStep            ) { fillColor = white;      }        
-        if ( 7*kStep + kStep/2 <= column  && column <= 8*kStep + kStep/2  ) { fillColor = black;      }
-        if ( 9*kStep <= column            && column <= 10*kStep           ) { fillColor = blueviolet; }
-    }
-    
-   else {
-*/       
+
        if ((column < xEnd - 1) && (row < yEnd - 1) ) {
            var x = Math.floor(column/kStep) * kStep;
            var y = Math.floor(row/kStep) * kStep;
@@ -111,17 +148,7 @@ function vitruviaOnClick(e) {
            // gDrawingContext.beginPath();
             
             gDrawingContext.fillStyle = fillColor;
-           // gDrawingContext.rect(x, y, kStep, kStep); // redraws entire canvas?
-           // gDrawingContext.fill();
-
              gDrawingContext.fillRect(x+1, y+1, kStep-1, kStep-1); // box lines don't get redrawn with empty color
-
-            
-            // redraws the box border
-           // gDrawingContext.strokeStyle = "#ccc";
-           // gDrawingContext.stroke();
-            
-            //gDrawingContext.closePath();	
         }
 //    }
 }
@@ -168,26 +195,7 @@ function drawBoard() {
     gDrawingContext.fillStyle = white;    
     gDrawingContext.rect(0, 0, xEnd, yEnd);
     gDrawingContext.fill();
-
     drawLines(lineColor);
- //   
- //   /* vertical lines */
- //   for (var x = 0; x <= xEnd; x += kStep) { 
- //       gDrawingContext.moveTo(0.5 + x, 0);
- //       gDrawingContext.lineTo(0.5 + x, yEnd);
- //   }
- //   
- //   /* horizontal lines */
- //   for (var y = 0; y <= yEnd; y += kStep) {
- //       gDrawingContext.moveTo(0    , 0.5 + y);
- //       gDrawingContext.lineTo(xEnd, 0.5 +  y);
- //   }
- //   
- //   /* draw it! */
- //   //gDrawingContext.strokeStyle = "#ccc";
- //   gDrawingContext.strokeStyle = lineColor;
- //   gDrawingContext.stroke();        
-    
     gDrawingContext.closePath();
 }
 
@@ -276,7 +284,9 @@ function initGame() {
 
 //    drawPallet();
     drawBoard();
-    
+
+    //generates random pentominos on the game board
+    initialCellGenerator();
    // save canvas image as data url (png format by default)
     //var dataURL = canvas.toDataURL();
 
