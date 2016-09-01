@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<title>Bricklayer Grid</title>
+
+<!-- ---------------------------------------------------------------------------- -->
+<style type="text/css">
+
+body {
+    background-color: lightblue;
+}
+
+#nav {
+    text-align:center;
+    line-height:20px;
+    background-color:#e0e0e0;
+    height:220px;
+    width:140px;
+    float: left;
+    padding:5px; 
+}
+#vCanvas { 
+    float:left;
+    background-color:#000000;    
+    padding:5px; 
+}
+
+#vitruvia_canvas:
+    {
+        margin: 0px;
+        display: block;
+    }
+    
+.canvas__mirror {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%; 
+}    
+</style>
+<!-- ---------------------------------------------------------------------------- -->
+
+<script src="javascript/grid.js"></script>
+    
+</head>
+
+
+<body onload="initGame()" onresize="initGame()">
+
+<div id="nav">
+<br>
+<br>
+
+        <table cellpadding="4">
+        <tr>
+            <td colspan="2">
+                <input type="text" name="enter" class="enter" value="8" size="2" id="size"/>
+                <input type="button" value="Enter" onclick="saveCanvas();initGame();"/>
+            
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="#" class="button" id="btn-download" download="bricklayer-grid.png">Save</a> 
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="color" id="stampColor" size="4">                 
+            </td>
+            <td>
+                <span class="dropt" title="Clear Grid">
+                <img src="images/Fotolia_wiper.jpg" alt="Clear" class="va-middle" onclick="clearGrid();"/> 
+                </span>                       
+            </td>
+        </tr>        
+        <tr>
+            <td colspan="2">
+                <input type="button" value="Hide Grid Lines" onclick="hideGridLines(white);"/>
+            
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="button" value="Restore Grid Lines" onclick="hideGridLines(lineColor);"/>            
+            </td>            
+        </tr>
+        
+        </table>
+</div>
+
+<div id="vCanvas" align="center">
+    <canvas id="vitruvia_canvas">  
+    <img src="" id="mirror" class="canvas__mirror" /> 
+    </canvas>
+
+</div>
+
+</body>
+</html>
