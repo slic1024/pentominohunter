@@ -13,9 +13,13 @@ var xEnd;
 
 var gCanvasElement;
 var gDrawingContext;
+var gGameContext;
 
-var xr;
-var yr;
+var randomPointX;
+var randomPointY;
+
+var randomPointXcollection =[];
+var randomPointYcollection =[];
 
 var red        = "#B40404";
 var green      = "#04B404";
@@ -42,52 +46,71 @@ function Cell(row, column) {
 
 
 // =======================================================================================
+function isRandomPointOccupied(a,b) {
 
-
+    var c,d,m = 0,distance = 4 ;
+    for (i = 0; i < randomPointXcollection.length; i++) {
+            c = randomPointXcollection[i] - a;
+            d = b - randomPointYcollection[i];
+        distance = Math.sqrt((c * c) + (d * d));
+        if(distance <   6*kStep)
+            m=1;
+    }
+        console.log('distance is'+ distance + 'm is' +m + 'kstep is ' + (6*kStep));
+        if (m==1)
+            return true;
+        else
+            return false;
+}
 //========================================================================================
 
-function Location(a,b) {
+function RandomPoint(a,b) {
     this.x = a;
     this.y = b;
 }
-
 // =======================================================================================
 // generates a random point on the canvas
-function randomPointGenerator(){
-    xr = Math.floor(Math.random()*(xEnd -(3*kStep)));
-    yr = Math.floor(Math.random()*yEnd);
-    if (yr>(yEnd-(3*kStep))) {
-        yr = yr -(3*kStep);
+function randomPointGenerator() {
+    randomPointX = Math.floor(Math.random() * (xEnd - (3 * kStep)));
+    randomPointY = Math.floor(Math.random() * yEnd);
+    if (randomPointY > (yEnd - (3 * kStep))) {
+        randomPointY = randomPointY - (3 * kStep);
     }
-    xr = Math.floor(xr/kStep) * kStep;
-    yr = Math.floor(yr/kStep) * kStep;
 
-    //pentomino style 1
-    c1 = new Location(xr,yr);
-    c2 = new Location(xr+kStep,yr);
-    c3 = new Location(xr,yr+kStep);
-    c4 = new Location(xr+kStep,yr+kStep);
-    c5 = new Location(xr,yr+(2*kStep));
+
+    randomPointX = Math.floor(randomPointX / kStep) * kStep;
+    randomPointY = Math.floor(randomPointY / kStep) * kStep;
+
+    if (isRandomPointOccupied(randomPointX, randomPointY)) {
+            randomPointGenerator();
+    }
+        randomPointXcollection.push(randomPointX);
+        randomPointYcollection.push(randomPointY);
+
+    //pentomino style 1 locations
+    c1 = new RandomPoint(0, 0);
+    c2 = new RandomPoint(kStep, 0);
+    c3 = new RandomPoint(0, kStep);
+    c4 = new RandomPoint(kStep, kStep);
+    c5 = new RandomPoint(0, 2 * kStep);
 }
-
 // =======================================================================================
 // generates the first cell for the random Pentomino
 function initialCellGenerator(){
-    randomPointGenerator();
-    gDrawingContext.beginPath();
+    gGameContext.beginPath();
 
     // Pentomino Color
-    gDrawingContext.fillStyle = blue;
+    gGameContext.fillStyle = blue;
     //rectangle location
-
-    gDrawingContext.fillRect(c1.x+1,           c1.y+1,          kStep-1, kStep-1);
-    gDrawingContext.fillRect(c2.x+1,           c2.y+1,    kStep-1, kStep-1);
-    gDrawingContext.fillRect(c3.x+1,     c3.y+1,    kStep-1, kStep-1);
-    gDrawingContext.fillRect(c4.x+1, c4.y+1,          kStep-1, kStep-1);
-    gDrawingContext.fillRect(c5.x+1,     c5.y+1,          kStep-1, kStep-1);
-
-    //gDrawingContext.fill();
-    gDrawingContext.closePath();
+    for(i=0;i<=2;i++) {
+        randomPointGenerator();
+        gGameContext.fillRect(c1.x + randomPointXcollection[i] + 1, c1.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+        gGameContext.fillRect(c2.x + randomPointXcollection[i] + 1, c2.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+        gGameContext.fillRect(c3.x + randomPointXcollection[i] + 1, c3.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+        gGameContext.fillRect(c4.x + randomPointXcollection[i] + 1, c4.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+        gGameContext.fillRect(c5.x + randomPointXcollection[i] + 1, c5.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+    }
+    gGameContext.closePath();
 }
 // =======================================================================================
 function getCursorPosition(e) {
@@ -281,11 +304,14 @@ function initGame() {
     gCanvasElement.height = kPixelHeight // + 2*kStep
     gCanvasElement.addEventListener("click", vitruviaOnClick, false);
     gDrawingContext       = gCanvasElement.getContext("2d");
+    gGameContext          = gCanvasElement.getContext("2d");
 
 //    drawPallet();
     drawBoard();
 
     //generates random pentominos on the game board
+    randomPointXcollection = [];
+    randomPointYcollection = [];
     initialCellGenerator();
    // save canvas image as data url (png format by default)
     //var dataURL = canvas.toDataURL();
