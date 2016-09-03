@@ -48,22 +48,18 @@ function Cell(row, column) {
 // =======================================================================================
 function isRandomPointOccupied(a,b) {
 
-    var c,d,m = 0,distance = 4 ;
+    var c,d,flag = false,distance = 4 ;
     for (i = 0; i < randomPointXcollection.length; i++) {
             c = randomPointXcollection[i] - a;
             d = b - randomPointYcollection[i];
         distance = Math.sqrt((c * c) + (d * d));
-        if(distance <   6*kStep)
-            m=1;
+        if(distance <   4*kStep)
+            flag = true;
     }
-        console.log('distance is'+ distance + 'm is' +m + 'kstep is ' + (6*kStep));
-        if (m==1)
-            return true;
-        else
-            return false;
+        return flag;
 }
 //========================================================================================
-
+// constructor for saving the random points
 function RandomPoint(a,b) {
     this.x = a;
     this.y = b;
@@ -75,6 +71,10 @@ function randomPointGenerator() {
     randomPointY = Math.floor(Math.random() * yEnd);
     if (randomPointY > (yEnd - (3 * kStep))) {
         randomPointY = randomPointY - (3 * kStep);
+    }else if (randomPointY < (2*kStep)){
+        randomPointY = randomPointY +kStep;
+    }else if (randomPointX < (2*kStep)){
+        randomPointX = randomPointX +(2*kStep);
     }
 
 
@@ -88,27 +88,66 @@ function randomPointGenerator() {
         randomPointYcollection.push(randomPointY);
 
     //pentomino style 1 locations
-    c1 = new RandomPoint(0, 0);
-    c2 = new RandomPoint(kStep, 0);
-    c3 = new RandomPoint(0, kStep);
-    c4 = new RandomPoint(kStep, kStep);
-    c5 = new RandomPoint(0, 2 * kStep);
+    //use c1 to c5 for pentomino style 1
+    //use c1 to c4 and c6 for pentomino style 2
+    //use c1 to c5 and c7 forpentomino style 3
+    //use c1 to c4 and c8 for pentomino style 4
+    //use c1 to c5 and c9 pentomino style 5
+    //use c1 to c4 and c10 for pentomino style 6
+    c1  = new RandomPoint(0,         0         );
+    c2  = new RandomPoint(kStep,     0         );
+    c3  = new RandomPoint(0,         kStep     );
+    c4  = new RandomPoint(kStep,     kStep     );
+    c5  = new RandomPoint(0,         2 * kStep );
+    c6  = new RandomPoint(kStep,     2 * kStep );
+    c7  = new RandomPoint(2*kStep,   kStep     );
+    c8  = new RandomPoint(2*kStep,   0         );
+    c9  = new RandomPoint(kStep,     -kStep    );
+    c10 = new RandomPoint(0,         -kStep    );
+    c11 = new RandomPoint(-kStep,    0         );
+    c12 = new RandomPoint(-kStep,    kStep     );
 }
 // =======================================================================================
 // generates the first cell for the random Pentomino
-function initialCellGenerator(){
+function layRandomPentominosOnBoard(){
     gGameContext.beginPath();
 
     // Pentomino Color
     gGameContext.fillStyle = blue;
     //rectangle location
-    for(i=0;i<=2;i++) {
+    for(i=0;i<=3;i++) {
         randomPointGenerator();
         gGameContext.fillRect(c1.x + randomPointXcollection[i] + 1, c1.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
         gGameContext.fillRect(c2.x + randomPointXcollection[i] + 1, c2.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
         gGameContext.fillRect(c3.x + randomPointXcollection[i] + 1, c3.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
         gGameContext.fillRect(c4.x + randomPointXcollection[i] + 1, c4.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
-        gGameContext.fillRect(c5.x + randomPointXcollection[i] + 1, c5.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+        switch (Math.floor((Math.random() * 8) + 1))
+        {
+            case 1:
+                gGameContext.fillRect(c5.x + randomPointXcollection[i] + 1, c5.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                break;
+            case 2:
+                gGameContext.fillRect(c6.x + randomPointXcollection[i] + 1, c6.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                break;
+            case 3:
+                gGameContext.fillRect(c7.x + randomPointXcollection[i] + 1, c7.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                break;
+            case 4:
+                gGameContext.fillRect(c9.x + randomPointXcollection[i] + 1, c9.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                break;
+            case 5:
+                gGameContext.fillRect(c9.x + randomPointXcollection[i] + 1, c9.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                break;
+            case 6:
+                gGameContext.fillRect(c10.x + randomPointXcollection[i] + 1, c10.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                break;
+            case 7:
+                gGameContext.fillRect(c11.x + randomPointXcollection[i] + 1, c11.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                break;
+            case 8:
+                gGameContext.fillRect(c12.x + randomPointXcollection[i] + 1, c12.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                break;
+        }
     }
     gGameContext.closePath();
 }
@@ -300,8 +339,8 @@ function initGame() {
     
  
     gCanvasElement        = canvasElement;
-    gCanvasElement.width  = kPixelWidth   // + 2*kStep // the kSteps make room for the pallet
-    gCanvasElement.height = kPixelHeight // + 2*kStep
+    gCanvasElement.width  = kPixelWidth;   // + 2*kStep // the kSteps make room for the pallet
+    gCanvasElement.height = kPixelHeight; // + 2*kStep
     gCanvasElement.addEventListener("click", vitruviaOnClick, false);
     gDrawingContext       = gCanvasElement.getContext("2d");
     gGameContext          = gCanvasElement.getContext("2d");
@@ -312,7 +351,7 @@ function initGame() {
     //generates random pentominos on the game board
     randomPointXcollection = [];
     randomPointYcollection = [];
-    initialCellGenerator();
+    layRandomPentominosOnBoard();
    // save canvas image as data url (png format by default)
     //var dataURL = canvas.toDataURL();
 
