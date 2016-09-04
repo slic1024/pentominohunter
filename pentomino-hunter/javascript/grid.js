@@ -21,9 +21,15 @@ var randomPointY;
 var pentominoTemplateCollection =[];
 var pentominoX_LocationCollection=[];
 var pentominoY_LocationCollection=[];
+var clickedX_collection = [];
+var clickedY_collection = [];
 
 var randomPointXcollection =[];
 var randomPointYcollection =[];
+
+var moves;
+var score;
+var streak;
 
 var pentominoPointsCollection = [];
 
@@ -215,12 +221,24 @@ function getCursorPalletPosition(e) {
     var co_ordinates = new Cell(y,x);
     return co_ordinates;
 }
+//========================================================================================
+function isLocationClicked(x1,y1){
+    for(i=0;i<clickedX_collection.length;i++) {
 
+        if ((clickedX_collection[i] == x1) && (clickedY_collection[i] == y1)) {
+            return true;
+        }
+    }
+    return false;
+}
 // =======================================================================================
 function vitruviaOnClick(e) {
     var current_click   = getCursorPalletPosition(e);
     var row    = current_click.row;
     var column = current_click.column;
+    var currentFillStyle;
+
+    moves++;
 
     //bleep.play();
     
@@ -231,19 +249,45 @@ function vitruviaOnClick(e) {
            var x = Math.floor(column / kStep) * kStep;
            var y = Math.floor(row / kStep) * kStep;
        }
-       console.log(x + "   " + y)
+       if(isLocationClicked(x,y)){
+           return;
+       }
            for(i=0;i<pentominoX_LocationCollection.length;i++){
+
                if((pentominoX_LocationCollection[i]==x)&&(pentominoY_LocationCollection[i] == y)){
-                   console.log(pentominoX_LocationCollection[i] +"isequal to " + x);
-                   gDrawingContext.fillStyle = blue;
+                   //gDrawingContext.fillStyle = blue;
+                   pentominoX_LocationCollection.splice(i,1);
+                   pentominoY_LocationCollection.splice(i,1);
+                   clickedX_collection.push(x);
+                   clickedY_collection.push(y);
+                   currentFillStyle = blue;
+                   streak++;
                    break;
                }
                else{
-                   console.log(pentominoX_LocationCollection[i] +"isequal yellow to " + x);
+                   clickedX_collection.push(x);
+                   clickedY_collection.push(y);
+                   currentFillStyle = yellow;
                    gDrawingContext.fillStyle =yellow;
                }
            }
+           if(currentFillStyle != blue)
+               streak = 0;
+           score = score +streak*1000;
+           document.getElementById("gameScore").innerHTML = "Score : " + score;
+           document.getElementById("numberOfMoves").innerHTML = "Moves : " +moves;
+           gDrawingContext.fillStyle = currentFillStyle;
            gDrawingContext.fillRect(x+1,y+1,kStep-1,kStep-1);
+        if (pentominoX_LocationCollection.length == 0) {
+
+            gCanvasElement.removeEventListener("click",vitruviaOnClick);
+            gDrawingContext.clearRect(0,0,xEnd,yEnd);
+            gDrawingContext.font = "30px Arial";
+            gDrawingContext.fillText("Game Over",40,50);
+            gDrawingContext.fillText("Number of Moves: " + moves,40,130);
+            gDrawingContext.fillText("Your Final Score: " + (score - (moves*100)),40,210);
+        }
+
     //gDrawingContext.closePath();
 }
 
@@ -328,10 +372,10 @@ function hideGridLines(color) {
 // =======================================================================================
 function initGame() {
     var canvasElement  = document.getElementById("vitruvia_canvas"); 
-    var v              = document.getElementById('size').value;
-    
+    var v              = 16; //document.getElementById('size').value;
+    side = v;
     // squares per side
-    if (v < 1) { 
+    /*if (v < 1) {
         alert('Smallest size is 2');
         side = 2;
     }
@@ -340,7 +384,7 @@ function initGame() {
         alert('Largest size is 64');
         side = 64;
     }
-    else { side = v; }
+    else { side = v; } */
 
     
     
@@ -348,6 +392,9 @@ function initGame() {
     //var boardSize  = 500;
     var boardSize;
     var delta = 0.3;
+    moves = 0;
+    score = 0;
+    streak = 0;
     
     if (window.innerWidth < window.innerHeight)
     { 
@@ -389,9 +436,9 @@ function initGame() {
     //drawLines(lineColor);
     xEnd = kPixelWidth;
     yEnd = kPixelHeight;
-    drawBoard();
-    layRandomPentominosOnBoard();
     //drawBoard();
+    layRandomPentominosOnBoard();
+    drawBoard();
     //layRandomMines();
    // save canvas image as data url (png format by default)
     var dataURL = canvas.toDataURL();
