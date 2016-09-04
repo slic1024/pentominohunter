@@ -18,8 +18,14 @@ var gGameContext;
 var randomPointX;
 var randomPointY;
 
+var pentominoTemplateCollection =[];
+var pentominoX_LocationCollection=[];
+var pentominoY_LocationCollection=[];
+
 var randomPointXcollection =[];
 var randomPointYcollection =[];
+
+var pentominoPointsCollection = [];
 
 var red        = "#B40404";
 var green      = "#04B404";
@@ -80,7 +86,6 @@ function randomPointGenerator() {
 
     randomPointX = Math.floor(randomPointX / kStep) * kStep;
     randomPointY = Math.floor(randomPointY / kStep) * kStep;
-
     if (isRandomPointOccupied(randomPointX, randomPointY)) {
             randomPointGenerator();
     }
@@ -89,25 +94,25 @@ function randomPointGenerator() {
 
     //pentomino style 1 locations
     //use c1 to c5 for pentomino style 1
-    //use c1 to c4 and c6 for pentomino style 2
-    //use c1 to c5 and c7 forpentomino style 3
-    //use c1 to c4 and c8 for pentomino style 4
-    //use c1 to c5 and c9 pentomino style 5
-    //use c1 to c4 and c10 for pentomino style 6
-    c1  = new RandomPoint(0,         0         );
-    c2  = new RandomPoint(kStep,     0         );
-    c3  = new RandomPoint(0,         kStep     );
-    c4  = new RandomPoint(kStep,     kStep     );
-    c5  = new RandomPoint(0,         2 * kStep );
-    c6  = new RandomPoint(kStep,     2 * kStep );
-    c7  = new RandomPoint(2*kStep,   kStep     );
-    c8  = new RandomPoint(2*kStep,   0         );
-    c9  = new RandomPoint(kStep,     -kStep    );
-    c10 = new RandomPoint(0,         -kStep    );
-    c11 = new RandomPoint(-kStep,    0         );
-    c12 = new RandomPoint(-kStep,    kStep     );
+    //use c1 to c4 and pentominoTemplateCollection[5] for pentomino style 2
+    //use c1 to c5 and pentominoTemplateCollection[6] forpentomino style 3
+    //use c1 to c4 and pentominoTemplateCollection[7] for pentomino style 4
+    //use c1 to c5 and pentominoTemplateCollection[8] pentomino style 5
+    //use c1 to c4 and pentominoTemplateCollection[9] for pentomino style 6
+    pentominoTemplateCollection.push(new RandomPoint(0,         0         ));
+    pentominoTemplateCollection.push(new RandomPoint(kStep,     0         ));
+    pentominoTemplateCollection.push(new RandomPoint(0,         kStep     ));
+    pentominoTemplateCollection.push(new RandomPoint(kStep,     kStep     ));
+    pentominoTemplateCollection.push(new RandomPoint(0,         2 * kStep ));
+    pentominoTemplateCollection.push(new RandomPoint(kStep,     2 * kStep ));
+    pentominoTemplateCollection.push(new RandomPoint(2*kStep,   kStep     ));
+    pentominoTemplateCollection.push(new RandomPoint(2*kStep,   0         ));
+    pentominoTemplateCollection.push(new RandomPoint(kStep,     -kStep    ));
+    pentominoTemplateCollection.push(new RandomPoint(0,         -kStep    ));
+    pentominoTemplateCollection.push(new RandomPoint(-kStep,    0         ));
+    pentominoTemplateCollection.push(new RandomPoint(-kStep,    kStep     ));
 }
-// =======================================================================================
+//================================================================================
 // generates the first cell for the random Pentomino
 function layRandomPentominosOnBoard(){
     gGameContext.beginPath();
@@ -117,39 +122,57 @@ function layRandomPentominosOnBoard(){
     //rectangle location
     for(i=0;i<=3;i++) {
         randomPointGenerator();
-        gGameContext.fillRect(c1.x + randomPointXcollection[i] + 1, c1.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
-        gGameContext.fillRect(c2.x + randomPointXcollection[i] + 1, c2.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
-        gGameContext.fillRect(c3.x + randomPointXcollection[i] + 1, c3.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
-        gGameContext.fillRect(c4.x + randomPointXcollection[i] + 1, c4.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+        for(j=0;j<4;j++) {
+            gGameContext.fillRect(pentominoTemplateCollection[j].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[j].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+            pentominoX_LocationCollection.push(pentominoTemplateCollection[j].x+randomPointXcollection[i]);
+            pentominoY_LocationCollection.push(pentominoTemplateCollection[j].y+randomPointYcollection[i]);
+        }
         switch (Math.floor((Math.random() * 8) + 1))
         {
             case 1:
-                gGameContext.fillRect(c5.x + randomPointXcollection[i] + 1, c5.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                gGameContext.fillRect(pentominoTemplateCollection[4].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[4].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                pentominoX_LocationCollection.push(pentominoTemplateCollection[4].x+randomPointXcollection[i]);
+                pentominoY_LocationCollection.push(pentominoTemplateCollection[4].y+randomPointYcollection[i]);
                 break;
             case 2:
-                gGameContext.fillRect(c6.x + randomPointXcollection[i] + 1, c6.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                gGameContext.fillRect(pentominoTemplateCollection[5].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[5].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                pentominoX_LocationCollection.push(pentominoTemplateCollection[5].x+randomPointXcollection[i]);
+                pentominoY_LocationCollection.push(pentominoTemplateCollection[5].y+randomPointYcollection[i]);
                 break;
             case 3:
-                gGameContext.fillRect(c7.x + randomPointXcollection[i] + 1, c7.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                gGameContext.fillRect(pentominoTemplateCollection[6].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[6].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                pentominoX_LocationCollection.push(pentominoTemplateCollection[6].x+randomPointXcollection[i]);
+                pentominoY_LocationCollection.push(pentominoTemplateCollection[6].y+randomPointYcollection[i]);
                 break;
             case 4:
-                gGameContext.fillRect(c9.x + randomPointXcollection[i] + 1, c9.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                gGameContext.fillRect(pentominoTemplateCollection[7].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[7].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                pentominoX_LocationCollection.push(pentominoTemplateCollection[7].x+randomPointXcollection[i]);
+                pentominoY_LocationCollection.push(pentominoTemplateCollection[7].y+randomPointYcollection[i]);
                 break;
             case 5:
-                gGameContext.fillRect(c9.x + randomPointXcollection[i] + 1, c9.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                gGameContext.fillRect(pentominoTemplateCollection[8].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[8].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                pentominoX_LocationCollection.push(pentominoTemplateCollection[8].x+randomPointXcollection[i]);
+                pentominoY_LocationCollection.push(pentominoTemplateCollection[8].y+randomPointYcollection[i]);
                 break;
             case 6:
-                gGameContext.fillRect(c10.x + randomPointXcollection[i] + 1, c10.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                gGameContext.fillRect(pentominoTemplateCollection[9].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[9].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                pentominoX_LocationCollection.push(pentominoTemplateCollection[9].x+randomPointXcollection[i]);
+                pentominoY_LocationCollection.push(pentominoTemplateCollection[9].y+randomPointYcollection[i]);
                 break;
             case 7:
-                gGameContext.fillRect(c11.x + randomPointXcollection[i] + 1, c11.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                gGameContext.fillRect(pentominoTemplateCollection[10].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[10].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                pentominoX_LocationCollection.push(pentominoTemplateCollection[10].x+randomPointXcollection[i]);
+                pentominoY_LocationCollection.push(pentominoTemplateCollection[10].y+randomPointYcollection[i]);
                 break;
             case 8:
-                gGameContext.fillRect(c12.x + randomPointXcollection[i] + 1, c12.y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                gGameContext.fillRect(pentominoTemplateCollection[11].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[11].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+                pentominoX_LocationCollection.push(pentominoTemplateCollection[11].x+randomPointXcollection[i]);
+                pentominoY_LocationCollection.push(pentominoTemplateCollection[11].y+randomPointYcollection[i]);
                 break;
         }
     }
     gGameContext.closePath();
+    gGameContext.save();
 }
 // =======================================================================================
 function getCursorPosition(e) {
@@ -189,30 +212,39 @@ function getCursorPalletPosition(e) {
     y -= gCanvasElement.offsetTop;
     x = Math.min(x, kBoardWidth * kStep);
     y = Math.min(y, kBoardHeight * kStep);
-    var cell = new Cell(y,x);
-    return cell;
+    var co_ordinates = new Cell(y,x);
+    return co_ordinates;
 }
 
 // =======================================================================================
 function vitruviaOnClick(e) {
-    var cell   = getCursorPalletPosition(e);
-    var row    = cell.row;
-    var column = cell.column;
+    var current_click   = getCursorPalletPosition(e);
+    var row    = current_click.row;
+    var column = current_click.column;
 
-    bleep.play();
+    //bleep.play();
     
-    fillColor  = document.getElementById('stampColor').value;
+   // fillColor  = document.getElementById('stampColor').value;
 
+    //gDrawingContext.beginPath();
        if ((column < xEnd - 1) && (row < yEnd - 1) ) {
-           var x = Math.floor(column/kStep) * kStep;
-           var y = Math.floor(row/kStep) * kStep;
-
-           // gDrawingContext.beginPath();
-            
-            gDrawingContext.fillStyle = fillColor;
-             gDrawingContext.fillRect(x+1, y+1, kStep-1, kStep-1); // box lines don't get redrawn with empty color
-        }
-//    }
+           var x = Math.floor(column / kStep) * kStep;
+           var y = Math.floor(row / kStep) * kStep;
+       }
+       console.log(x + "   " + y)
+           for(i=0;i<pentominoX_LocationCollection.length;i++){
+               if((pentominoX_LocationCollection[i]==x)&&(pentominoY_LocationCollection[i] == y)){
+                   console.log(pentominoX_LocationCollection[i] +"isequal to " + x);
+                   gDrawingContext.fillStyle = blue;
+                   break;
+               }
+               else{
+                   console.log(pentominoX_LocationCollection[i] +"isequal yellow to " + x);
+                   gDrawingContext.fillStyle =yellow;
+               }
+           }
+           gDrawingContext.fillRect(x+1,y+1,kStep-1,kStep-1);
+    //gDrawingContext.closePath();
 }
 
 // =======================================================================================
@@ -254,7 +286,7 @@ function drawBoard() {
     gDrawingContext.beginPath();
 
     // Canvas base color
-    gDrawingContext.fillStyle = white;    
+    gDrawingContext.fillStyle = red;
     gDrawingContext.rect(0, 0, xEnd, yEnd);
     gDrawingContext.fill();
     drawLines(lineColor);
@@ -327,7 +359,7 @@ function initGame() {
     }
 
   
-    kStep = Math.floor(boardSize / side)            
+    kStep = Math.floor(boardSize / side);
                
     
     //size of canvas we want to use
@@ -346,14 +378,23 @@ function initGame() {
     gGameContext          = gCanvasElement.getContext("2d");
 
 //    drawPallet();
-    drawBoard();
+    //drawBoard();
 
     //generates random pentominos on the game board
     randomPointXcollection = [];
     randomPointYcollection = [];
+    pentominoTemplateCollection =[];
+    pentominoX_LocationCollection =[];
+    pentominoY_LocationCollection =[];
+    //drawLines(lineColor);
+    xEnd = kPixelWidth;
+    yEnd = kPixelHeight;
+    drawBoard();
     layRandomPentominosOnBoard();
+    //drawBoard();
+    //layRandomMines();
    // save canvas image as data url (png format by default)
-    //var dataURL = canvas.toDataURL();
+    var dataURL = canvas.toDataURL();
 
     // set canvasImg image src to dataURL
     // so it can be saved as an image
