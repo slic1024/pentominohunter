@@ -121,64 +121,64 @@ function randomPointGenerator() {
 //================================================================================
 // generates the first cell for the random Pentomino
 function layRandomPentominosOnBoard(){
-    gGameContext.beginPath();
+//    gGameContext.beginPath();
 
     // Pentomino Color
-    gGameContext.fillStyle = blue;
+  //  gGameContext.fillStyle = blue;
     //rectangle location
     for(i=0;i<=3;i++) {
         randomPointGenerator();
         for(j=0;j<4;j++) {
-            gGameContext.fillRect(pentominoTemplateCollection[j].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[j].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+    //        gGameContext.fillRect(pentominoTemplateCollection[j].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[j].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
             pentominoX_LocationCollection.push(pentominoTemplateCollection[j].x+randomPointXcollection[i]);
             pentominoY_LocationCollection.push(pentominoTemplateCollection[j].y+randomPointYcollection[i]);
         }
         switch (Math.floor((Math.random() * 8) + 1))
         {
             case 1:
-                gGameContext.fillRect(pentominoTemplateCollection[4].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[4].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+      //          gGameContext.fillRect(pentominoTemplateCollection[4].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[4].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
                 pentominoX_LocationCollection.push(pentominoTemplateCollection[4].x+randomPointXcollection[i]);
                 pentominoY_LocationCollection.push(pentominoTemplateCollection[4].y+randomPointYcollection[i]);
                 break;
             case 2:
-                gGameContext.fillRect(pentominoTemplateCollection[5].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[5].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+        //        gGameContext.fillRect(pentominoTemplateCollection[5].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[5].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
                 pentominoX_LocationCollection.push(pentominoTemplateCollection[5].x+randomPointXcollection[i]);
                 pentominoY_LocationCollection.push(pentominoTemplateCollection[5].y+randomPointYcollection[i]);
                 break;
             case 3:
-                gGameContext.fillRect(pentominoTemplateCollection[6].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[6].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+          //      gGameContext.fillRect(pentominoTemplateCollection[6].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[6].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
                 pentominoX_LocationCollection.push(pentominoTemplateCollection[6].x+randomPointXcollection[i]);
                 pentominoY_LocationCollection.push(pentominoTemplateCollection[6].y+randomPointYcollection[i]);
                 break;
             case 4:
-                gGameContext.fillRect(pentominoTemplateCollection[7].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[7].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+            //    gGameContext.fillRect(pentominoTemplateCollection[7].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[7].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
                 pentominoX_LocationCollection.push(pentominoTemplateCollection[7].x+randomPointXcollection[i]);
                 pentominoY_LocationCollection.push(pentominoTemplateCollection[7].y+randomPointYcollection[i]);
                 break;
             case 5:
-                gGameContext.fillRect(pentominoTemplateCollection[8].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[8].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+           //     gGameContext.fillRect(pentominoTemplateCollection[8].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[8].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
                 pentominoX_LocationCollection.push(pentominoTemplateCollection[8].x+randomPointXcollection[i]);
                 pentominoY_LocationCollection.push(pentominoTemplateCollection[8].y+randomPointYcollection[i]);
                 break;
             case 6:
-                gGameContext.fillRect(pentominoTemplateCollection[9].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[9].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+           //     gGameContext.fillRect(pentominoTemplateCollection[9].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[9].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
                 pentominoX_LocationCollection.push(pentominoTemplateCollection[9].x+randomPointXcollection[i]);
                 pentominoY_LocationCollection.push(pentominoTemplateCollection[9].y+randomPointYcollection[i]);
                 break;
             case 7:
-                gGameContext.fillRect(pentominoTemplateCollection[10].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[10].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+             //   gGameContext.fillRect(pentominoTemplateCollection[10].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[10].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
                 pentominoX_LocationCollection.push(pentominoTemplateCollection[10].x+randomPointXcollection[i]);
                 pentominoY_LocationCollection.push(pentominoTemplateCollection[10].y+randomPointYcollection[i]);
                 break;
             case 8:
-                gGameContext.fillRect(pentominoTemplateCollection[11].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[11].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
+               // gGameContext.fillRect(pentominoTemplateCollection[11].x + randomPointXcollection[i] + 1, pentominoTemplateCollection[11].y + randomPointYcollection[i] + 1, kStep - 1, kStep - 1);
                 pentominoX_LocationCollection.push(pentominoTemplateCollection[11].x+randomPointXcollection[i]);
                 pentominoY_LocationCollection.push(pentominoTemplateCollection[11].y+randomPointYcollection[i]);
                 break;
         }
     }
-    gGameContext.closePath();
-    gGameContext.save();
+    //gGameContext.closePath();
+    //gGameContext.save();
 }
 // =======================================================================================
 function getCursorPosition(e) {
@@ -422,7 +422,7 @@ function initGame() {
     gCanvasElement.height = kPixelHeight; // + 2*kStep
     gCanvasElement.addEventListener("click", vitruviaOnClick, false);
     gDrawingContext       = gCanvasElement.getContext("2d");
-    gGameContext          = gCanvasElement.getContext("2d");
+    //gGameContext          = gCanvasElement.getContext("2d");
 
 //    drawPallet();
     //drawBoard();
