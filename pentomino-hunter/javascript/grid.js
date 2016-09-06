@@ -419,6 +419,9 @@ function initGame() {
     
     kBoardWidth  = kPixelWidth;
     kBoardHeight = kPixelHeight;
+
+    clickedX_collection =[];
+    clickedY_collection = [];
     
  
     gCanvasElement        = canvasElement;
