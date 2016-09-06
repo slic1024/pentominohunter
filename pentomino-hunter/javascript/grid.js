@@ -249,44 +249,48 @@ function vitruviaOnClick(e) {
            var x = Math.floor(column / kStep) * kStep;
            var y = Math.floor(row / kStep) * kStep;
        }
-       if(isLocationClicked(x,y)){
-           return;
-       }
-           for(i=0;i<pentominoX_LocationCollection.length;i++){
+       for(i=0;i<1;i++) {
+           if (isLocationClicked(x, y)) {
+               break;
+           }
+           for (i = 0; i < pentominoX_LocationCollection.length; i++) {
 
-               if((pentominoX_LocationCollection[i]==x)&&(pentominoY_LocationCollection[i] == y)){
+               if ((pentominoX_LocationCollection[i] == x) && (pentominoY_LocationCollection[i] == y)) {
                    //gDrawingContext.fillStyle = blue;
-                   pentominoX_LocationCollection.splice(i,1);
-                   pentominoY_LocationCollection.splice(i,1);
+                   pentominoX_LocationCollection.splice(i, 1);
+                   pentominoY_LocationCollection.splice(i, 1);
                    clickedX_collection.push(x);
                    clickedY_collection.push(y);
                    currentFillStyle = blue;
                    streak++;
                    break;
                }
-               else{
+               else {
                    clickedX_collection.push(x);
                    clickedY_collection.push(y);
                    currentFillStyle = yellow;
-                   gDrawingContext.fillStyle =yellow;
+                   gDrawingContext.fillStyle = yellow;
                }
            }
-           if(currentFillStyle != blue)
+           if (currentFillStyle != blue)
                streak = 0;
-           score = score +streak*1000;
+           score = score + (streak * 1000) - 100;
+           if(score<0)
+               score = 0;
            document.getElementById("gameScore").innerHTML = "Score : " + score;
-           document.getElementById("numberOfMoves").innerHTML = "Moves : " +moves;
+           document.getElementById("numberOfMoves").innerHTML = "Moves : " + moves;
            gDrawingContext.fillStyle = currentFillStyle;
-           gDrawingContext.fillRect(x+1,y+1,kStep-1,kStep-1);
-        if (pentominoX_LocationCollection.length == 0) {
+           gDrawingContext.fillRect(x + 1, y + 1, kStep - 1, kStep - 1);
+           if (pentominoX_LocationCollection.length == 0) {
 
-            gCanvasElement.removeEventListener("click",vitruviaOnClick);
-            gDrawingContext.clearRect(0,0,xEnd,yEnd);
-            gDrawingContext.font = "30px Arial";
-            gDrawingContext.fillText("Game Over",40,50);
-            gDrawingContext.fillText("Number of Moves: " + moves,40,130);
-            gDrawingContext.fillText("Your Final Score: " + (score - (moves*100)),40,210);
-        }
+               gCanvasElement.removeEventListener("click", vitruviaOnClick);
+               gDrawingContext.clearRect(0, 0, xEnd, yEnd);
+               gDrawingContext.font = "30px Arial";
+               gDrawingContext.fillText("Game Over", 40, 50);
+               gDrawingContext.fillText("Number of Moves: " + moves, 40, 130);
+               gDrawingContext.fillText("Your Final Score: " + score, 40, 210);
+           }
+       }
 
     //gDrawingContext.closePath();
 }
