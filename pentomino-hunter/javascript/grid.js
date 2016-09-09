@@ -47,7 +47,10 @@ var fillColor = white;
 var lineColor = "#ccc"; // "black";
 
 var bleep = new Audio();
-bleep.src = 'click_real_short.mp3';
+bleep.src = 'javascript/click_real_short.mp3';
+
+var game_music = new Audio();
+game_music.src = 'javascript/game_music.mp3';
 
 // =======================================================================================
 // =======================================================================================
@@ -239,6 +242,7 @@ function vitruviaOnClick(e) {
     var currentFillStyle;
 
     moves++;
+    bleep.play();
 
     //bleep.play();
     
@@ -422,7 +426,9 @@ function initGame() {
 
     clickedX_collection =[];
     clickedY_collection = [];
-    
+
+    game_music.loop = "true";
+    game_music.play();
  
     gCanvasElement        = canvasElement;
     gCanvasElement.width  = kPixelWidth;   // + 2*kStep // the kSteps make room for the pallet
@@ -446,6 +452,8 @@ function initGame() {
     //drawBoard();
     layRandomPentominosOnBoard();
     drawBoard();
+    document.getElementById("gameScore").innerHTML = "Score : " + score;
+    document.getElementById("numberOfMoves").innerHTML = "Moves : " + moves;
     //layRandomMines();
    // save canvas image as data url (png format by default)
     var dataURL = canvas.toDataURL();
