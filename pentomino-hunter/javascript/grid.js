@@ -32,6 +32,7 @@ var blockedPointYcollection = [];
 var moves;
 var score;
 var streak;
+var generations;
 
 
 var red        = "#B40404";
@@ -64,25 +65,44 @@ function Cell(row, column) {
 function rotatePentomino(){
     var tx,ty;
     var numberOfRotations= Math.floor( Math.random()*4);
+    var max = 0;
+    var lastX = randomPointXcollection.pop();
+    var lastY = randomPointYcollection.pop();
+    console.log(randomPointXcollection);
+    for(m=0;m<pentominoTemplateCollection.length;m++){
+        if(max<pentominoTemplateCollection[m].x){
+            max = pentominoTemplateCollection[m].x;
+        }
+        if(max<pentominoTemplateCollection[m].y){
+            max = pentominoTemplateCollection[m].y;
+        }
+    }
+
 
     for(r=0;r<numberOfRotations;r++){
         for(n=0;n<5;n++) {
             tx = pentominoTemplateCollection[n].x;
             ty = pentominoTemplateCollection[n].y;
-            pentominoTemplateCollection[n].x = ty + kStep;
-            pentominoTemplateCollection[n].y = kStep - tx;
+            pentominoTemplateCollection[n].x = ty;
+            pentominoTemplateCollection[n].y = max- tx;
         }
     }
 
     for(i=0;i<5;i++){
-        pentominoX_LocationCollection.push(pentominoTemplateCollection[i].x + randomPointXcollection[0]);
-        pentominoY_LocationCollection.push(pentominoTemplateCollection[i].y + randomPointYcollection[0]);
+        pentominoX_LocationCollection.push(pentominoTemplateCollection[i].x + lastX);
+        pentominoY_LocationCollection.push(pentominoTemplateCollection[i].y + lastY);
     }
-    randomPointXcollection =[]; randomPointYcollection = [];
+   // randomPointXcollection =[]; randomPointYcollection = [];
     pentominoTemplateCollection =[];
 }
 // =======================================================================================
 function rotateFlip() {
+    var max=0;
+    for (m=0;m<pentominoTemplateCollection.length;m++){
+        if(max<pentominoTemplateCollection[m].x){
+            max = pentominoTemplateCollection[m].x;
+        }
+    }
     switch(Math.floor(Math.random()*2+1)){
         case 1:
             rotatePentomino();
@@ -90,7 +110,7 @@ function rotateFlip() {
         case 2:
             //flipping
             for(f=0;f<5;f++){
-                pentominoTemplateCollection[f].x = kStep - pentominoTemplateCollection[f].x
+                pentominoTemplateCollection[f].x = max - pentominoTemplateCollection[f].x;
             }
             rotatePentomino();
             break;
@@ -101,7 +121,6 @@ function rotateFlip() {
 // =======================================================================================
 function selectPentomino(){
     var case_style = Math.floor(Math.random()*12 + 1);
-    console.log("style" + case_style);
     switch(case_style)
     {
         case 1:
@@ -203,50 +222,42 @@ function selectPentomino(){
     }
 }
 // =======================================================================================
-function isRandomPointOccupied(a,b) {
 
-    var c,d,flag = false,distance = 4 ;
-    console.log("Xcollection Length" + randomPointXcollection.length);
-    for (i = 0; i < blockedPointXcollection.length; i++) {
-            c = blockedPointXcollection[i] - a;
-            d = b - blockedPointYcollection[i];
-        distance = Math.sqrt((c * c) + (d * d));
-        console.log("distance is " + distance);
-        if(distance <   5*kStep)
-            flag = true;
-    }
-        return flag;
-}
-//========================================================================================
-// constructor for saving the random points
-function RandomPoint(a,b) {
-    this.x = a;
-    this.y = b;
-}
-// =======================================================================================
-// generates a random point on the canvas
 function randomPointGenerator() {
-    randomPointX = Math.floor(Math.random() * (xEnd - (4 * kStep)));
-    randomPointX += kStep;
-    randomPointY = Math.floor(Math.random() * yEnd - (3*kStep));
-    randomPointY +=kStep;
-    randomPointX = Math.floor(randomPointX / kStep) * kStep;
-    randomPointY = Math.floor(randomPointY / kStep) * kStep;
-    if (isRandomPointOccupied(randomPointX, randomPointY)) {
-        randomPointGenerator();
+    var xLimit = xEnd - 5 * kStep;
+    var yLimit = yEnd - 5 * kStep;
+    var a = 0;
+    var b = 0;
+    while (a < xLimit) {
+        a = Math.floor(Math.random() * (5 * kStep)) + a;
+        a = Math.floor(a / kStep) * kStep;
+        b=0;
+        console.log("sec" + randomPointXcollection);
+        while (b < yLimit) {
+            b = Math.floor(Math.random() * (5 * kStep)) + b;
+            b = Math.floor(b / kStep) * kStep;
+            if(a<=xLimit && b<= yLimit) {
+                randomPointXcollection.push(a);
+                randomPointYcollection.push(b);
+            }
+            console.log(randomPointYcollection);
+            b = b + 5 * kStep;
+        }
+        a= a + 5*kStep;
     }
-    blockedPointXcollection.push(randomPointX);
-    blockedPointYcollection.push(randomPointY);
-    randomPointXcollection.push(randomPointX);
-    randomPointYcollection.push(randomPointY);
-    console.log("random is" +randomPointX); console.log(" random is  " + randomPointY);
 }
 //================================================================================
+function RandomPoint(x,y) {
+    this.x = x;
+    this.y = y;
+}
+// ================================================================================
 // generates the first cell for the random Pentomino
 function layRandomPentominosOnBoard(){
-
-    for(j=0;j<=3;j++) {
-        randomPointGenerator();
+    randomPointGenerator();
+    var numberofPentominoes = randomPointXcollection.length;
+    for(j=0;j<numberofPentominoes;j++) {
+        console.log("executed");
         selectPentomino();
     }
 }
@@ -290,11 +301,6 @@ function vitruviaOnClick(e) {
     moves++;
     bleep.play();
 
-    //bleep.play();
-    
-   // fillColor  = document.getElementById('stampColor').value;
-
-    //gDrawingContext.beginPath();
        if ((column < xEnd - 1) && (row < yEnd - 1) ) {
            var x = Math.floor(column / kStep) * kStep;
            var y = Math.floor(row / kStep) * kStep;
@@ -349,28 +355,28 @@ function vitruviaOnClick(e) {
 function drawLines(color) {
     xEnd = kPixelWidth;
     yEnd = kPixelHeight;
-    
+
     //gDrawingContext.clearRect(0, 0, xEnd, yEnd);
-     
+
     gDrawingContext.beginPath();
-    
+
     /* vertical lines */
-    for (var x = 0; x <= xEnd; x += kStep) { 
+    for (var x = 0; x <= xEnd; x += kStep) {
         gDrawingContext.moveTo(0.5 + x, 0);
         gDrawingContext.lineTo(0.5 + x, yEnd);
     }
-    
+
     /* horizontal lines */
     for (var y = 0; y <= yEnd; y += kStep) {
         gDrawingContext.moveTo(0    , 0.5 + y);
         gDrawingContext.lineTo(xEnd, 0.5 +  y);
     }
-    
+
     /* draw it! */
     gDrawingContext.strokeStyle = color;
-    gDrawingContext.stroke();        
-    
-    gDrawingContext.closePath();    
+    gDrawingContext.stroke();
+
+    gDrawingContext.closePath();
 }
 
 // =======================================================================================
@@ -378,9 +384,9 @@ function drawBoard() {
 
     xEnd = kPixelWidth;
     yEnd = kPixelHeight;
-    
+
     gDrawingContext.clearRect(0, 0, xEnd, yEnd);
-     
+
     gDrawingContext.beginPath();
 
     // Canvas base color
@@ -390,28 +396,6 @@ function drawBoard() {
     drawLines(lineColor);
     gDrawingContext.closePath();
 }
-
-// =======================================================================================
-function saveCanvas() {
-    
-    
-// http://weworkweplay.com/play/saving-html5-canvas-as-image/    
-    
-var canvas = document.getElementById('vitruvia_canvas'),
-    ctx    = canvas.getContext('2d'),
-    mirror = document.getElementById('mirror');
-
-
-    canvas.width = mirror.width = window.innerWidth;
-    canvas.height = mirror.height = window.innerHeight;
-
-    var button = document.getElementById('btn-download');
-    button.addEventListener('click', function (e) {
-        var dataURL = canvas.toDataURL('image/png');
-        button.href = dataURL;
-    });  
-}
-
 
 // =======================================================================================
 function clearGrid() {
@@ -425,7 +409,7 @@ function hideGridLines(color) {
 
 // =======================================================================================
 function initGame() {
-    var canvasElement  = document.getElementById("vitruvia_canvas"); 
+    var canvasElement  = document.getElementById("vitruvia_canvas");
     var v              = 16; //document.getElementById('size').value;
     side = v;
     var boardSize;
@@ -433,24 +417,24 @@ function initGame() {
     moves = 0;
     score = 0;
     streak = 0;
-    
+
     if (window.innerWidth < window.innerHeight)
-    { 
+    {
         boardSize = window.innerWidth - delta * window.innerWidth ;
     }
     else
-    { 
+    {
         boardSize = window.innerHeight - delta * window.innerHeight;
     }
 
-  
+
     kStep = Math.floor(boardSize / side);
-               
-    
+
+
     //size of canvas we want to use
     kPixelWidth  = kStep * side + 1;
     kPixelHeight = kStep * side + 1;
-    
+
     kBoardWidth  = kPixelWidth;
     kBoardHeight = kPixelHeight;
 
@@ -459,18 +443,13 @@ function initGame() {
 
     game_music.loop = "true";
     game_music.play();
- 
+
     gCanvasElement        = canvasElement;
     gCanvasElement.width  = kPixelWidth;   // + 2*kStep // the kSteps make room for the pallet
     gCanvasElement.height = kPixelHeight; // + 2*kStep
     gCanvasElement.addEventListener("click", vitruviaOnClick, false);
     gDrawingContext       = gCanvasElement.getContext("2d");
-    //gGameContext          = gCanvasElement.getContext("2d");
 
-//    drawPallet();
-    //drawBoard();
-
-    //generates random pentominos on the game board
     randomPointXcollection = [];
     randomPointYcollection = [];
     pentominoTemplateCollection =[];
@@ -478,6 +457,7 @@ function initGame() {
     pentominoY_LocationCollection =[];
     blockedPointXcollection =[];
     blockedPointYcollection = [];
+    generations = 0;
     //drawLines(lineColor);
     xEnd = kPixelWidth;
     yEnd = kPixelHeight;
@@ -486,20 +466,6 @@ function initGame() {
     //drawBoard();
     document.getElementById("gameScore").innerHTML = "Score : " + score;
     document.getElementById("numberOfMoves").innerHTML = "Moves : " + moves;
-    gDrawingContext.fillStyle = blueviolet;
-    for(k=0;k<pentominoX_LocationCollection.length;k++){
-        gDrawingContext.fillRect(pentominoX_LocationCollection[k]+1, pentominoY_LocationCollection[k]+1,kStep-1,kStep-1);
-    }
-    //layRandomMines();
-   // save canvas image as data url (png format by default)
-    var dataURL = canvas.toDataURL();
-
-    // set canvasImg image src to dataURL
-    // so it can be saved as an image
-    document.getElementById('vitruvia_canvas').src = dataURL;    
-    
-    // makes save canvas possible
-    saveCanvas();
 }
 
 // =======================================================================================
