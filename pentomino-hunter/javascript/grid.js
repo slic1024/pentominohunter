@@ -229,12 +229,12 @@ function randomPointGenerator() {
     var a = 0;
     var b = 0;
     while (a < xLimit) {
-        a = Math.floor(Math.random() * (5 * kStep)) + a;
+        a = Math.floor(Math.random() * (2 * kStep)) + a;
         a = Math.floor(a / kStep) * kStep;
         b=0;
         console.log("sec" + randomPointXcollection);
         while (b < yLimit) {
-            b = Math.floor(Math.random() * (5 * kStep)) + b;
+            b = Math.floor(Math.random() * (2 * kStep)) + b;
             b = Math.floor(b / kStep) * kStep;
             if(a<=xLimit && b<= yLimit) {
                 randomPointXcollection.push(a);

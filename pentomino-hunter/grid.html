@@ -21,6 +21,15 @@ body {
     float: left;
     padding:5px; 
 }
+#nav_pentomino{
+    text-align:center;
+    line-height:20px;
+    background-color:#e0e0e0;
+    height:420px;
+    width:675px;
+    float: left;
+    padding:5px;
+}
 #vCanvas { 
     float:left;
     background-color:#000000;    
@@ -56,39 +65,99 @@ body {
 <br>
 
         <table cellpadding="4">
-        <tr>
-            <td>
-            <!-- <button colspan="2"> -->
-            <!--    <input type="text" name="enter" class="enter" value="16" size="2" id="size"/> -->
-                <button type="button" onclick="initGame();"> Start Game!</button>
-            
-            </td>
-        </tr>
-        <tr>
-              <td>
-                  <span class="dropt" title="Clear Grid">
-                 <!-- <img src="images/Fotolia_wiper.jpg" alt="Clear" class="va-middle" onclick="clearGrid();"/> -->
-                </span>                       
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <button type="button" onclick="initGame();"> Start Game!</button>
+                </td>
+            </tr>
 
-        <tr>
-            <td>
-            <p id = "gameScore"></p>
-            </td>
-        </tr>
+            <tr>
+                 <td>
+                    <span class="dropt" title="Clear Grid">
+                    </span>
+                 </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p id = "gameScore"></p>
+                </td>
+            </tr>
 
             <tr>
                 <td>
                     <p id ="numberOfMoves"></p>
                 </td>
             </tr>
-            </table>
+        </table>
+        <br>
+
     </div>
     <div id="vCanvas" align="center">
         <canvas id="vitruvia_canvas">
         <img src="" id="mirror" class="canvas__mirror" />
         </canvas>
+    </div>
+
+    <div id = "nav_pentomino">
+        <p>Select Pentominoes</p>
+        <table cellpadding="16">
+            <tr>
+                <td>
+                    <input type="image" src="images/pentomino_images/P1.PNG" alt="Pentomino Pattern" onclick="">
+                    <br>
+                </td>
+                <td>
+                    <input type="image" src="images/pentomino_images/p2.PNG" alt="Pentomino Pattern" onclick="">
+                    <br>
+                </td>
+
+                <td>
+                    <input type="image" src="images/pentomino_images/p3.PNG" alt="Pentomino Pattern" onclick="">
+                    <br>
+                </td>
+                <td>
+                    <input type="image" src="images/pentomino_images/p4.PNG" alt="Pentomino Pattern" onclick="">
+                    <br>
+                </td>
+                <td>
+                    <input type="image" src="images/pentomino_images/p5.PNG" alt="Pentomino Pattern" onclick="">
+                    <br>
+                </td>
+                <td>
+                    <input type="image" src="images/pentomino_images/p6.PNG" alt="Pentomino Pattern" onclick="">
+                    <br>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="image" src="images/pentomino_images/p7.PNG" alt="Pentomino Pattern" onclick="">
+                    <br>
+                </td>
+                <td>
+                    <input type="image" src="images/pentomino_images/p8.PNG" alt="Pentomino Pattern" onclick="">
+                    <br>
+                </td>
+
+                <td>
+                    <input type="image" src="images/pentomino_images/p9.PNG" alt="Pentomino Pattern" onclick="">
+                    <br>
+                </td>
+                <td>
+                    <input type="image" src="images/pentomino_images/p10.PNG" alt="Pentomino Pattern" onclick="">
+                    <br>
+                </td>
+                <td>
+                    <input type="image" src="images/pentomino_images/p11.PNG" alt="Pentomino Pattern" onclick="">
+                    <br>
+                </td>
+                <td>
+                    <input type="image" src="images/pentomino_images/p12.PNG" alt="Pentomino Pattern" onclick="">
+                    <br>
+                </td>
+            </tr>
+        </table>
     </div>
 
     </body>
