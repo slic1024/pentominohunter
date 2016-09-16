@@ -540,7 +540,7 @@ function welcome(){
     gDrawingContext.font = "30px Arial";
     gDrawingContext.fillText("Select your favorite pentominoes" ,10, 130);
     gDrawingContext.font = "30px Arial";
-    gDrawingContext.fillText("Click Start Game to Start",10,210);
+    gDrawingContext.fillText("Click Start Game to Play",10,210);
     gDrawingContext.fillText("Good Luck!", 10, 290);
 
 
