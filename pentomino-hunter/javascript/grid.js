@@ -13,10 +13,7 @@ var xEnd;
 
 var gCanvasElement;
 var gDrawingContext;
-var gGameContext;
 
-var randomPointX;
-var randomPointY;
 
 var pentominoTemplateCollection =[];
 var pentominoX_LocationCollection=[];
@@ -53,6 +50,8 @@ bleep.src = 'javascript/click_real_short.mp3';
 
 var game_music = new Audio();
 game_music.src = 'javascript/game_music.mp3';
+
+var selectedPentominoCollection = [];
 
 // =======================================================================================
 // =======================================================================================
@@ -120,7 +119,11 @@ function rotateFlip() {
 
 // =======================================================================================
 function selectPentomino(){
-    var case_style = Math.floor(Math.random()*12 + 1);
+    var case_style;
+    if(selectedPentominoCollection.length!=0)
+        case_style = selectedPentominoCollection[Math.floor(Math.random()*selectedPentominoCollection.length)];
+    else
+        case_style = Math.floor(Math.random()*12) + 1;
     switch(case_style)
     {
         case 1:
@@ -301,18 +304,16 @@ function vitruviaOnClick(e) {
     moves++;
     bleep.play();
 
-       if ((column < xEnd - 1) && (row < yEnd - 1) ) {
-           var x = Math.floor(column / kStep) * kStep;
-           var y = Math.floor(row / kStep) * kStep;
-       }
-       for(i=0;i<1;i++) {
-           if (isLocationClicked(x, y)) {
-               break;
-           }
-           for (i = 0; i < pentominoX_LocationCollection.length; i++) {
-
-               if ((pentominoX_LocationCollection[i] == x) && (pentominoY_LocationCollection[i] == y)) {
-                   //gDrawingContext.fillStyle = blue;
+    if ((column < xEnd - 1) && (row < yEnd - 1) ) {
+        var x = Math.floor(column / kStep) * kStep;
+        var y = Math.floor(row / kStep) * kStep;
+    }
+    for(i=0;i<1;i++) {
+        if (isLocationClicked(x, y)) {
+            break;
+        }
+        for (i = 0; i < pentominoX_LocationCollection.length; i++) {
+            if ((pentominoX_LocationCollection[i] == x) && (pentominoY_LocationCollection[i] == y)) {
                    pentominoX_LocationCollection.splice(i, 1);
                    pentominoY_LocationCollection.splice(i, 1);
                    clickedX_collection.push(x);
@@ -338,17 +339,16 @@ function vitruviaOnClick(e) {
            gDrawingContext.fillStyle = currentFillStyle;
            gDrawingContext.fillRect(x + 1, y + 1, kStep - 1, kStep - 1);
            if (pentominoX_LocationCollection.length == 0) {
-
                gCanvasElement.removeEventListener("click", vitruviaOnClick);
                gDrawingContext.clearRect(0, 0, xEnd, yEnd);
                gDrawingContext.font = "30px Arial";
                gDrawingContext.fillText("Game Over", 40, 50);
                gDrawingContext.fillText("Number of Moves: " + moves, 40, 130);
                gDrawingContext.fillText("Your Final Score: " + score, 40, 210);
+               document.getElementById("start").innerHTML = "Start Game";
+               document.getElementById("start").setAttribute("onclick","javascript: initGame();");
            }
-       }
-
-    //gDrawingContext.closePath();
+    }
 }
 
 // =======================================================================================
@@ -406,12 +406,91 @@ function clearGrid() {
 function hideGridLines(color) {
     drawLines(color);
 }
+// =======================================================================================
+function addSelectedPentomino(){
+
+    var s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12;
+    s1 = document.getElementById("p1");
+    s2 = document.getElementById("p2");
+    s3 = document.getElementById("p3");
+    s4 = document.getElementById("p4");
+    s5 = document.getElementById("p5");
+    s6 = document.getElementById("p6");
+    s7 = document.getElementById("p7");
+    s8 = document.getElementById("p8");
+    s9 = document.getElementById("p9");
+    s10 = document.getElementById("p10");
+    s11 = document.getElementById("p11");
+    s12 = document.getElementById("p12");
+    if(s1.checked) {
+        selectedPentominoCollection.push(1);
+    }
+    if(s2.checked) {
+        selectedPentominoCollection.push(2);
+    }
+    if(s3.checked) {
+        selectedPentominoCollection.push(3);
+    }
+    if(s4.checked) {
+        selectedPentominoCollection.push(4);
+    }
+    if(s5.checked) {
+        selectedPentominoCollection.push(5);
+    }
+    if(s6.checked) {
+        selectedPentominoCollection.push(6);
+    }
+    if(s7.checked) {
+        selectedPentominoCollection.push(7);
+    }
+    if(s8.checked) {
+        selectedPentominoCollection.push(8);
+    }
+    if(s9.checked) {
+        selectedPentominoCollection.push(9);
+    }
+    if(s10.checked) {
+        selectedPentominoCollection.push(10);
+    }
+    if(s11.checked) {
+        selectedPentominoCollection.push(11);
+    }
+    if(s12.checked) {
+        selectedPentominoCollection.push(12);
+    }
+}
 
 // =======================================================================================
 function initGame() {
+    gCanvasElement.addEventListener("click", vitruviaOnClick, false);
+
+    randomPointXcollection = [];
+    randomPointYcollection = [];
+    pentominoTemplateCollection =[];
+    pentominoX_LocationCollection =[];
+    pentominoY_LocationCollection =[];
+    blockedPointXcollection =[];
+    blockedPointYcollection = [];
+    selectedPentominoCollection = [];
+    clickedX_collection =[];
+    clickedY_collection = [];
+
+    xEnd = kPixelWidth;
+    yEnd = kPixelHeight;
+    document.getElementById("start").innerHTML = "End Game";
+    document.getElementById("start").setAttribute("onclick","javascript: welcome();");
+    addSelectedPentomino();
+    drawBoard();
+    layRandomPentominosOnBoard();
+    document.getElementById("gameScore").innerHTML = "Score : " + score;
+    document.getElementById("numberOfMoves").innerHTML = "Moves : " + moves;
+}
+
+// =======================================================================================
+
+function welcome(){
     var canvasElement  = document.getElementById("vitruvia_canvas");
-    var v              = 16; //document.getElementById('size').value;
-    side = v;
+    side = 16;
     var boardSize;
     var delta = 0.3;
     moves = 0;
@@ -438,8 +517,7 @@ function initGame() {
     kBoardWidth  = kPixelWidth;
     kBoardHeight = kPixelHeight;
 
-    clickedX_collection =[];
-    clickedY_collection = [];
+
 
     game_music.loop = "true";
     game_music.play();
@@ -447,30 +525,28 @@ function initGame() {
     gCanvasElement        = canvasElement;
     gCanvasElement.width  = kPixelWidth;   // + 2*kStep // the kSteps make room for the pallet
     gCanvasElement.height = kPixelHeight; // + 2*kStep
-    gCanvasElement.addEventListener("click", vitruviaOnClick, false);
     gDrawingContext       = gCanvasElement.getContext("2d");
 
-    randomPointXcollection = [];
-    randomPointYcollection = [];
-    pentominoTemplateCollection =[];
-    pentominoX_LocationCollection =[];
-    pentominoY_LocationCollection =[];
-    blockedPointXcollection =[];
-    blockedPointYcollection = [];
-    generations = 0;
-    //drawLines(lineColor);
-    xEnd = kPixelWidth;
-    yEnd = kPixelHeight;
-    drawBoard();
-    layRandomPentominosOnBoard();
-    //drawBoard();
+    document.getElementById("start").innerHTML = "Start Game";
+    document.getElementById("start").setAttribute("onclick","javascript: initGame();");
+
     document.getElementById("gameScore").innerHTML = "Score : " + score;
     document.getElementById("numberOfMoves").innerHTML = "Moves : " + moves;
+
+
+    gDrawingContext.font = "30px Arial";
+    gDrawingContext.fillStyle = green;
+    gDrawingContext.fillText("Welcome to Pentomino Hunter", 10, 50);
+    gDrawingContext.font = "30px Arial";
+    gDrawingContext.fillText("Select your favorite pentominoes" ,10, 130);
+    gDrawingContext.font = "30px Arial";
+    gDrawingContext.fillText("Click Start Game to Start",10,210);
+    gDrawingContext.fillText("Good Luck!", 10, 290);
+
+
+    xEnd = kPixelWidth;
+    yEnd = kPixelHeight;
 }
-
-// =======================================================================================
-
-
 
 
 

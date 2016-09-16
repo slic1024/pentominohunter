@@ -24,8 +24,8 @@ body {
 #nav_pentomino{
     text-align:center;
     line-height:20px;
-    background-color:#e0e0e0;
-    height:420px;
+    background-color: white;
+    height:520px;
     width:675px;
     float: left;
     padding:5px;
@@ -53,11 +53,12 @@ body {
 <!-- ---------------------------------------------------------------------------- -->
 
 <script src="javascript/grid.js"></script>
-    
+
 </head>
 
 
-<body onload="initGame()" onresize="initGame()">
+
+<body onload="welcome()" onresize="welcome()">
 
 
 <div id="nav">
@@ -67,7 +68,7 @@ body {
         <table cellpadding="4">
             <tr>
                 <td>
-                    <button type="button" onclick="initGame();"> Start Game!</button>
+                    <button id="start" type="button" onclick="initGame();"> Start Game!</button>
                 </td>
             </tr>
 
@@ -91,7 +92,6 @@ body {
             </tr>
         </table>
         <br>
-
     </div>
     <div id="vCanvas" align="center">
         <canvas id="vitruvia_canvas">
@@ -102,63 +102,91 @@ body {
     <div id = "nav_pentomino">
         <p>Select Pentominoes</p>
         <table cellpadding="16">
+                <tr>
+                    <td>
+                        <img src="images/pentomino_images/P1.PNG" alt="Pentomino Pattern" >
+                    </td>
+                    <td>
+                        <img src="images/pentomino_images/p2.PNG" alt="Pentomino Pattern" >
+                    <td>
+                        <img src="images/pentomino_images/p3.PNG" alt="Pentomino Pattern" >
+                    </td>
+                    <td>
+                        <img src="images/pentomino_images/p4.PNG" alt="Pentomino Pattern" >
+                    </td>
+                    <td>
+                        <img src="images/pentomino_images/p5.PNG" alt="Pentomino Pattern" >
+                    </td>
+                    <td>
+                        <img src="images/pentomino_images/p6.PNG" alt="Pentomino Pattern" >
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" id ="p1" checked>
+                    </td>
+                    <td>
+                        <input type="checkbox" id ="p2" checked>
+                    </td>
+                    <td>
+                        <input type="checkbox" id ="p3" checked>
+                    </td>
+                    <td>
+                        <input type="checkbox" id ="p4" checked>
+                    </td>
+                    <td>
+                        <input type="checkbox" id ="p5" checked>
+                    </td>
+                    <td>
+                        <input type="checkbox" id ="p6" checked>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="images/pentomino_images/p7.PNG" alt="Pentomino Pattern" >
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/pentomino_images/p8.PNG" alt="Pentomino Pattern" >
+                        <br>
+                    <td>
+                        <img src="images/pentomino_images/p9.PNG" alt="Pentomino Pattern" >
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/pentomino_images/p10.PNG" alt="Pentomino Pattern" >
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/pentomino_images/p11.PNG" alt="Pentomino Pattern" >
+                        <br>
+                    </td>
+                    <td>
+                        <img src="images/pentomino_images/p12.PNG" alt="Pentomino Pattern" >
+                        <br>
+                    </td>
+                </tr>
             <tr>
                 <td>
-                    <input type="image" src="images/pentomino_images/P1.PNG" alt="Pentomino Pattern" onclick="">
-                    <br>
+                    <input type="checkbox" id ="p7" checked>
                 </td>
                 <td>
-                    <input type="image" src="images/pentomino_images/p2.PNG" alt="Pentomino Pattern" onclick="">
-                    <br>
-                </td>
-
-                <td>
-                    <input type="image" src="images/pentomino_images/p3.PNG" alt="Pentomino Pattern" onclick="">
-                    <br>
+                    <input type="checkbox" id ="p8" checked>
                 </td>
                 <td>
-                    <input type="image" src="images/pentomino_images/p4.PNG" alt="Pentomino Pattern" onclick="">
-                    <br>
+                    <input type="checkbox" id ="p9" checked>
                 </td>
                 <td>
-                    <input type="image" src="images/pentomino_images/p5.PNG" alt="Pentomino Pattern" onclick="">
-                    <br>
+                    <input type="checkbox" id ="p10" checked>
                 </td>
                 <td>
-                    <input type="image" src="images/pentomino_images/p6.PNG" alt="Pentomino Pattern" onclick="">
-                    <br>
+                    <input type="checkbox" id ="p11" checked>
+                </td>
+                <td>
+                    <input type="checkbox" id ="p12" checked>
                 </td>
             </tr>
-
-            <tr>
-                <td>
-                    <input type="image" src="images/pentomino_images/p7.PNG" alt="Pentomino Pattern" onclick="">
-                    <br>
-                </td>
-                <td>
-                    <input type="image" src="images/pentomino_images/p8.PNG" alt="Pentomino Pattern" onclick="">
-                    <br>
-                </td>
-
-                <td>
-                    <input type="image" src="images/pentomino_images/p9.PNG" alt="Pentomino Pattern" onclick="">
-                    <br>
-                </td>
-                <td>
-                    <input type="image" src="images/pentomino_images/p10.PNG" alt="Pentomino Pattern" onclick="">
-                    <br>
-                </td>
-                <td>
-                    <input type="image" src="images/pentomino_images/p11.PNG" alt="Pentomino Pattern" onclick="">
-                    <br>
-                </td>
-                <td>
-                    <input type="image" src="images/pentomino_images/p12.PNG" alt="Pentomino Pattern" onclick="">
-                    <br>
-                </td>
-            </tr>
-        </table>
-    </div>
-
+            </table>
+        </div>
     </body>
     </html>
