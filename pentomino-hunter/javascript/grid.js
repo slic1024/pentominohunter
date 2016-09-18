@@ -18,6 +18,7 @@ var gDrawingContext;
 var pentominoTemplateCollection =[];
 var pentominoX_LocationCollection=[];
 var pentominoY_LocationCollection=[];
+var pentominoColorCollection = [];
 var clickedX_collection = [];
 var clickedY_collection = [];
 
@@ -29,7 +30,6 @@ var blockedPointYcollection = [];
 var moves;
 var score;
 var streak;
-var generations;
 
 
 var red        = "#B40404";
@@ -90,8 +90,10 @@ function rotatePentomino(){
     for(i=0;i<5;i++){
         pentominoX_LocationCollection.push(pentominoTemplateCollection[i].x + lastX);
         pentominoY_LocationCollection.push(pentominoTemplateCollection[i].y + lastY);
+        pentominoColorCollection.push(pentominoTemplateCollection[i].color);
+        console.log("color is " + pentominoTemplateCollection[i].color);
     }
-   // randomPointXcollection =[]; randomPointYcollection = [];
+
     pentominoTemplateCollection =[];
 }
 // =======================================================================================
@@ -127,99 +129,99 @@ function selectPentomino(){
     switch(case_style)
     {
         case 1:
-            pentominoTemplateCollection.push(new RandomPoint(0,0));
-            pentominoTemplateCollection.push(new RandomPoint(kStep , 0));
-            pentominoTemplateCollection.push(new RandomPoint(0,kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep , kStep));
-            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep));
+            pentominoTemplateCollection.push(new RandomPoint(0,0,"#0000FF"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep , 0, "#0000FF"));
+            pentominoTemplateCollection.push(new RandomPoint(0,kStep, "#0000FF"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep , kStep,"#0000FF"));
+            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep, "#0000FF"));
             rotateFlip();
             break;
         case 2:
-            pentominoTemplateCollection.push(new RandomPoint(kStep,0));
-            pentominoTemplateCollection.push(new RandomPoint(kStep , kStep));
-            pentominoTemplateCollection.push(new RandomPoint(0,kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep , 2*kStep));
-            pentominoTemplateCollection.push(new RandomPoint(2*kStep,2*kStep));
+            pentominoTemplateCollection.push(new RandomPoint(kStep,0,"#804040"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep , kStep,"#804040"));
+            pentominoTemplateCollection.push(new RandomPoint(0,kStep, "#804040"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep , 2*kStep, "#804040"));
+            pentominoTemplateCollection.push(new RandomPoint(2*kStep,2*kStep, "#804040"));
             rotateFlip();
             break;
         case 3:
-            pentominoTemplateCollection.push(new RandomPoint(0,0));
-            pentominoTemplateCollection.push(new RandomPoint(0,1*kStep));
-            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep));
-            pentominoTemplateCollection.push(new RandomPoint(0,3*kStep));
-            pentominoTemplateCollection.push(new RandomPoint(0,4*kStep));
+            pentominoTemplateCollection.push(new RandomPoint(0,0, "#008040"));
+            pentominoTemplateCollection.push(new RandomPoint(0,1*kStep,"#008040"));
+            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep, "#008040"));
+            pentominoTemplateCollection.push(new RandomPoint(0,3*kStep, "#008040"));
+            pentominoTemplateCollection.push(new RandomPoint(0,4*kStep, "#008040"));
             rotateFlip();
             break;
         case 4:
-            pentominoTemplateCollection.push(new RandomPoint(0,0));
-            pentominoTemplateCollection.push(new RandomPoint(0,kStep));
-            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep));
-            pentominoTemplateCollection.push(new RandomPoint(0,3*kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep,0));
+            pentominoTemplateCollection.push(new RandomPoint(0,0,"#C0C0C0"));
+            pentominoTemplateCollection.push(new RandomPoint(0,kStep, "#C0C0C0"));
+            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep, "#C0C0C0"));
+            pentominoTemplateCollection.push(new RandomPoint(0,3*kStep, "#C0C0C0"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep,0, "#C0C0C0"));
             rotateFlip();
             break;
         case 5:
-            pentominoTemplateCollection.push(new RandomPoint(0,0));
-            pentominoTemplateCollection.push(new RandomPoint(0,kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep,kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep,2*kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep,3*kStep));
+            pentominoTemplateCollection.push(new RandomPoint(0,0, "#00FF00"));
+            pentominoTemplateCollection.push(new RandomPoint(0,kStep, "#00FF00"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep,kStep, "#00FF00"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep,2*kStep, "#00FF00"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep,3*kStep, "#00FF00"));
             rotateFlip();
             break;
         case 6:
-            pentominoTemplateCollection.push(new RandomPoint(kStep,0));
-            pentominoTemplateCollection.push(new RandomPoint(kStep , kStep));
-            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep , 2*kStep));
-            pentominoTemplateCollection.push(new RandomPoint(2*kStep,2*kStep));
+            pentominoTemplateCollection.push(new RandomPoint(kStep,0, "#400080"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep , kStep, "#400080"));
+            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep, "#400080"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep , 2*kStep, "#400080"));
+            pentominoTemplateCollection.push(new RandomPoint(2*kStep,2*kStep, "#400080"));
             rotateFlip();
             break;
         case 7:
-            pentominoTemplateCollection.push(new RandomPoint(0,0));
-            pentominoTemplateCollection.push(new RandomPoint(0, kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep,0));
-            pentominoTemplateCollection.push(new RandomPoint(2*kStep , 0));
-            pentominoTemplateCollection.push(new RandomPoint(2*kStep,kStep));
+            pentominoTemplateCollection.push(new RandomPoint(0,0, "#808000"));
+            pentominoTemplateCollection.push(new RandomPoint(0, kStep, "#808000"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep,0, "#808000"));
+            pentominoTemplateCollection.push(new RandomPoint(2*kStep , 0, "#808000"));
+            pentominoTemplateCollection.push(new RandomPoint(2*kStep,kStep, "#808000"));
             rotateFlip();
             break;
         case 8:
-            pentominoTemplateCollection.push(new RandomPoint(0,0));
-            pentominoTemplateCollection.push(new RandomPoint(0 , kStep));
-            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep , 0));
-            pentominoTemplateCollection.push(new RandomPoint(2*kStep,0));
+            pentominoTemplateCollection.push(new RandomPoint(0,0, "#FF8000"));
+            pentominoTemplateCollection.push(new RandomPoint(0 , kStep, "#FF8000"));
+            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep, "#FF8000"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep , 0, "#FF8000"));
+            pentominoTemplateCollection.push(new RandomPoint(2*kStep,0, "#FF8000"));
             rotateFlip();
             break;
         case 9:
-            pentominoTemplateCollection.push(new RandomPoint(kStep,0));
-            pentominoTemplateCollection.push(new RandomPoint(2*kStep , 0));
-            pentominoTemplateCollection.push(new RandomPoint(0,kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep , kStep));
-            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep));
+            pentominoTemplateCollection.push(new RandomPoint(kStep,0, "#800080"));
+            pentominoTemplateCollection.push(new RandomPoint(2*kStep , 0, "#800080"));
+            pentominoTemplateCollection.push(new RandomPoint(0,kStep, "#800080"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep , kStep, "#800080"));
+            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep, "#800080"));
             rotateFlip();
             break;
         case 10:
-            pentominoTemplateCollection.push(new RandomPoint(0,kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep , 0));
-            pentominoTemplateCollection.push(new RandomPoint(kStep,kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep , 2*kStep));
-            pentominoTemplateCollection.push(new RandomPoint(2*kStep,kStep));
+            pentominoTemplateCollection.push(new RandomPoint(0,kStep, "#000040"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep , 0, "#000040"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep,kStep, "#000040"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep , 2*kStep, "#000040"));
+            pentominoTemplateCollection.push(new RandomPoint(2*kStep,kStep, "#000040"));
             rotateFlip();
             break;
         case 11:
-            pentominoTemplateCollection.push(new RandomPoint(kStep, 0));
-            pentominoTemplateCollection.push(new RandomPoint(kStep ,2*kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep, kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep ,3*kStep));
-            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep));
+            pentominoTemplateCollection.push(new RandomPoint(kStep, 0, "#008080"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep ,2*kStep, "#008080"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep, kStep, "#008080"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep ,3*kStep, "#008080"));
+            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep, "#008080"));
             rotateFlip();
             break;
         case 12:
-            pentominoTemplateCollection.push(new RandomPoint(2*kStep,0));
-            pentominoTemplateCollection.push(new RandomPoint(kStep , 0));
-            pentominoTemplateCollection.push(new RandomPoint(kStep,kStep));
-            pentominoTemplateCollection.push(new RandomPoint(kStep ,2* kStep));
-            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep));
+            pentominoTemplateCollection.push(new RandomPoint(2*kStep,0, "#00FFFF"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep , 0, "#00FFFF"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep,kStep, "#00FFFF"));
+            pentominoTemplateCollection.push(new RandomPoint(kStep ,2* kStep, "#00FFFF"));
+            pentominoTemplateCollection.push(new RandomPoint(0,2*kStep, "#00FFFF"));
             rotateFlip();
             break;
     }
@@ -250,9 +252,10 @@ function randomPointGenerator() {
     }
 }
 //================================================================================
-function RandomPoint(x,y) {
+function RandomPoint(x,y,color) {
     this.x = x;
     this.y = y;
+    this.color = color;
 }
 // ================================================================================
 // generates the first cell for the random Pentomino
@@ -310,44 +313,47 @@ function vitruviaOnClick(e) {
     }
     for(i=0;i<1;i++) {
         if (isLocationClicked(x, y)) {
+            moves--;
             break;
         }
         for (i = 0; i < pentominoX_LocationCollection.length; i++) {
-            if ((pentominoX_LocationCollection[i] == x) && (pentominoY_LocationCollection[i] == y)) {
-                   pentominoX_LocationCollection.splice(i, 1);
-                   pentominoY_LocationCollection.splice(i, 1);
-                   clickedX_collection.push(x);
-                   clickedY_collection.push(y);
-                   currentFillStyle = blue;
-                   streak++;
-                   break;
-               }
-               else {
-                   clickedX_collection.push(x);
-                   clickedY_collection.push(y);
-                   currentFillStyle = yellow;
-                   gDrawingContext.fillStyle = yellow;
-               }
-           }
-           if (currentFillStyle != blue)
-               streak = 0;
-           score = score + (streak * 1000) - 100;
-           if(score<0)
-               score = 0;
-           document.getElementById("gameScore").innerHTML = "Score : " + score;
-           document.getElementById("numberOfMoves").innerHTML = "Moves : " + moves;
-           gDrawingContext.fillStyle = currentFillStyle;
-           gDrawingContext.fillRect(x + 1, y + 1, kStep - 1, kStep - 1);
-           if (pentominoX_LocationCollection.length == 0) {
-               gCanvasElement.removeEventListener("click", vitruviaOnClick);
-               gDrawingContext.clearRect(0, 0, xEnd, yEnd);
-               gDrawingContext.font = "30px Arial";
-               gDrawingContext.fillText("Game Over", 40, 50);
-               gDrawingContext.fillText("Number of Moves: " + moves, 40, 130);
-               gDrawingContext.fillText("Your Final Score: " + score, 40, 210);
-               document.getElementById("start").innerHTML = "Start Game";
-               document.getElementById("start").setAttribute("onclick","javascript: initGame();");
-           }
+                if ((pentominoX_LocationCollection[i] == x) && (pentominoY_LocationCollection[i] == y)) {
+                    pentominoX_LocationCollection.splice(i, 1);
+                    pentominoY_LocationCollection.splice(i, 1);
+                    clickedX_collection.push(x);
+                    clickedY_collection.push(y);
+                    currentFillStyle = pentominoColorCollection[i];
+                    pentominoColorCollection.splice(i, 1);
+                    streak++;
+                    break;
+                } else {
+                    clickedX_collection.push(x);
+                    clickedY_collection.push(y);
+                    currentFillStyle = yellow;
+                    gDrawingContext.fillStyle = yellow;
+                }
+            }
+            if (currentFillStyle == yellow) {
+                streak = 0;
+            }
+            score = score + (streak * 1000) - 100;
+            if (score < 0) {
+                score = 0;
+            }
+            document.getElementById("gameScore").innerHTML = "Score : " + score;
+            document.getElementById("numberOfMoves").innerHTML = "Moves : " + moves;
+            gDrawingContext.fillStyle = currentFillStyle;
+            gDrawingContext.fillRect(x + 1, y + 1, kStep - 1, kStep - 1);
+            if (pentominoX_LocationCollection.length == 0) {
+                gCanvasElement.removeEventListener("click", vitruviaOnClick);
+                gDrawingContext.clearRect(0, 0, xEnd, yEnd);
+                gDrawingContext.font = "30px Arial";
+                gDrawingContext.fillText("Game Over", 40, 50);
+                gDrawingContext.fillText("Number of Moves: " + moves, 40, 130);
+                gDrawingContext.fillText("Your Final Score: " + score, 40, 210);
+                document.getElementById("start").innerHTML = "Start Game";
+                document.getElementById("start").setAttribute("onclick", "javascript: initGame();");
+            }
     }
 }
 
@@ -469,11 +475,14 @@ function initGame() {
     pentominoTemplateCollection =[];
     pentominoX_LocationCollection =[];
     pentominoY_LocationCollection =[];
+    pentominoColorCollection = [];
     blockedPointXcollection =[];
     blockedPointYcollection = [];
     selectedPentominoCollection = [];
     clickedX_collection =[];
     clickedY_collection = [];
+    score = 0;
+    moves = 0;
 
     xEnd = kPixelWidth;
     yEnd = kPixelHeight;
