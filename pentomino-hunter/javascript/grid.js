@@ -303,6 +303,8 @@ function vitruviaOnClick(e) {
     var row    = current_click.row;
     var column = current_click.column;
     var currentFillStyle;
+    var numberOfPentominoCells = pentominoX_LocationCollection.length;
+    var accuracy;
 
     moves++;
     bleep.play();
@@ -342,15 +344,18 @@ function vitruviaOnClick(e) {
             }
             document.getElementById("gameScore").innerHTML = "Score : " + score;
             document.getElementById("numberOfMoves").innerHTML = "Moves : " + moves;
+            document.getElementById("numberOfPentominoesRemaining").innerHTML =Math.ceil(pentominoX_LocationCollection.length/5);
             gDrawingContext.fillStyle = currentFillStyle;
             gDrawingContext.fillRect(x + 1, y + 1, kStep - 1, kStep - 1);
             if (pentominoX_LocationCollection.length == 0) {
+                accuracy = Math.ceil((numberOfPentominoCells/clickedX_collection.length)*100);
                 gCanvasElement.removeEventListener("click", vitruviaOnClick);
                 gDrawingContext.clearRect(0, 0, xEnd, yEnd);
                 gDrawingContext.font = "30px Arial";
                 gDrawingContext.fillText("Game Over", 40, 50);
                 gDrawingContext.fillText("Number of Moves: " + moves, 40, 130);
-                gDrawingContext.fillText("Your Final Score: " + score, 40, 210);
+                gDrawingContext.fillText("Accuracy: "+ accuracy,40,210);
+                gDrawingContext.fillText("Your Final Score: " + score, 40, 290);
                 document.getElementById("start").innerHTML = "Start Game";
                 document.getElementById("start").setAttribute("onclick", "javascript: initGame();");
             }
@@ -493,6 +498,7 @@ function initGame() {
     layRandomPentominosOnBoard();
     document.getElementById("gameScore").innerHTML = "Score : " + score;
     document.getElementById("numberOfMoves").innerHTML = "Moves : " + moves;
+    document.getElementById("numberOfPentominoesRemaining").innerHTML =Math.ceil(pentominoX_LocationCollection.length/5);
 }
 
 // =======================================================================================
@@ -541,6 +547,7 @@ function welcome(){
 
     document.getElementById("gameScore").innerHTML = "Score : " + score;
     document.getElementById("numberOfMoves").innerHTML = "Moves : " + moves;
+    document.getElementById("numberOfPentominoesRemaining").innerHTML = "";
 
 
     gDrawingContext.font = "30px Arial";
