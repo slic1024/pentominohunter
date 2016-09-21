@@ -19,6 +19,7 @@ var pentominoTemplateCollection =[];
 var pentominoX_LocationCollection=[];
 var pentominoY_LocationCollection=[];
 var pentominoColorCollection = [];
+var numberOfPentominoCells;
 var clickedX_collection = [];
 var clickedY_collection = [];
 
@@ -30,6 +31,7 @@ var blockedPointYcollection = [];
 var moves;
 var score;
 var streak;
+var accuracy;
 
 
 var red        = "#B40404";
@@ -262,6 +264,7 @@ function RandomPoint(x,y,color) {
 function layRandomPentominosOnBoard(){
     randomPointGenerator();
     var numberofPentominoes = randomPointXcollection.length;
+    numberOfPentominoCells = randomPointXcollection.length*5;
     for(j=0;j<numberofPentominoes;j++) {
         console.log("executed");
         selectPentomino();
@@ -303,8 +306,6 @@ function vitruviaOnClick(e) {
     var row    = current_click.row;
     var column = current_click.column;
     var currentFillStyle;
-    var numberOfPentominoCells = pentominoX_LocationCollection.length;
-    var accuracy;
 
     moves++;
     bleep.play();
@@ -318,19 +319,22 @@ function vitruviaOnClick(e) {
             moves--;
             break;
         }
+
+        clickedX_collection.push(x);
+        clickedY_collection.push(y);
         for (i = 0; i < pentominoX_LocationCollection.length; i++) {
                 if ((pentominoX_LocationCollection[i] == x) && (pentominoY_LocationCollection[i] == y)) {
                     pentominoX_LocationCollection.splice(i, 1);
                     pentominoY_LocationCollection.splice(i, 1);
-                    clickedX_collection.push(x);
-                    clickedY_collection.push(y);
+                    //clickedX_collection.push(x);
+                    //clickedY_collection.push(y);
                     currentFillStyle = pentominoColorCollection[i];
                     pentominoColorCollection.splice(i, 1);
                     streak++;
                     break;
                 } else {
-                    clickedX_collection.push(x);
-                    clickedY_collection.push(y);
+                    //clickedX_collection.push(x);
+                    //clickedY_collection.push(y);
                     currentFillStyle = yellow;
                     gDrawingContext.fillStyle = yellow;
                 }
@@ -344,7 +348,7 @@ function vitruviaOnClick(e) {
             }
             document.getElementById("gameScore").innerHTML = "Score : " + score;
             document.getElementById("numberOfMoves").innerHTML = "Moves : " + moves;
-            document.getElementById("numberOfPentominoesRemaining").innerHTML =Math.ceil(pentominoX_LocationCollection.length/5);
+            document.getElementById("numberOfPentominoesRemaining").innerHTML ="Pentominoes to Go:"+Math.ceil(pentominoX_LocationCollection.length/5);
             gDrawingContext.fillStyle = currentFillStyle;
             gDrawingContext.fillRect(x + 1, y + 1, kStep - 1, kStep - 1);
             if (pentominoX_LocationCollection.length == 0) {
@@ -354,7 +358,7 @@ function vitruviaOnClick(e) {
                 gDrawingContext.font = "30px Arial";
                 gDrawingContext.fillText("Game Over", 40, 50);
                 gDrawingContext.fillText("Number of Moves: " + moves, 40, 130);
-                gDrawingContext.fillText("Accuracy: "+ accuracy,40,210);
+                gDrawingContext.fillText("Accuracy: "+ accuracy+"%",40,210);
                 gDrawingContext.fillText("Your Final Score: " + score, 40, 290);
                 document.getElementById("start").innerHTML = "Start Game";
                 document.getElementById("start").setAttribute("onclick", "javascript: initGame();");
@@ -498,7 +502,7 @@ function initGame() {
     layRandomPentominosOnBoard();
     document.getElementById("gameScore").innerHTML = "Score : " + score;
     document.getElementById("numberOfMoves").innerHTML = "Moves : " + moves;
-    document.getElementById("numberOfPentominoesRemaining").innerHTML =Math.ceil(pentominoX_LocationCollection.length/5);
+    document.getElementById("numberOfPentominoesRemaining").innerHTML ="Pentominoes to Go:"+ Math.ceil(pentominoX_LocationCollection.length/5);
 }
 
 // =======================================================================================
