@@ -56,6 +56,12 @@ game_music.src = 'javascript/game_music.mp3';
 var selectedPentominoCollection = [];
 
 // =======================================================================================
+function imageSelection(id){
+    if(document.getElementById(id).checked)
+        document.getElementById(id).checked = false;
+    else
+        document.getElementById(id).checked = true;
+}
 // =======================================================================================
 function Cell(row, column) {
     this.row = row;

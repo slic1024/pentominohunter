@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="69cbf4d8-8742-4b66-a1e2-eacda3621759" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pentomino-hunter/grid.html" afterPath="$PROJECT_DIR$/pentomino-hunter/grid.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pentomino-hunter/javascript/grid.js" afterPath="$PROJECT_DIR$/pentomino-hunter/javascript/grid.js" />
     </list>
     <ignored path="pentomino-hunter.iws" />
@@ -26,21 +27,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="grid.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="grid.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pentomino-hunter/grid.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1649">
-              <caret line="97" column="31" selection-start-line="97" selection-start-column="31" selection-end-line="97" selection-end-column="31" />
+            <state relative-caret-position="217">
+              <caret line="183" column="20" selection-start-line="183" selection-start-column="20" selection-end-line="183" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="grid.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="grid.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pentomino-hunter/javascript/grid.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="362" column="39" selection-start-line="362" selection-start-column="39" selection-end-line="362" selection-end-column="39" />
+            <state relative-caret-position="289">
+              <caret line="65" column="28" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -62,9 +63,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/pentomino-hunter/image-picker-master/image-picker/image-picker.js" />
-        <option value="$PROJECT_DIR$/pentomino-hunter/grid.html" />
         <option value="$PROJECT_DIR$/test.html" />
         <option value="$PROJECT_DIR$/pentomino-hunter/javascript/grid.js" />
+        <option value="$PROJECT_DIR$/pentomino-hunter/grid.html" />
       </list>
     </option>
   </component>
@@ -310,12 +311,14 @@
       <workItem from="1474314513600" duration="1329000" />
       <workItem from="1474326618242" duration="62000" />
       <workItem from="1474345529889" duration="37000" />
-      <workItem from="1474423295422" duration="2085000" />
+      <workItem from="1474423295422" duration="2135000" />
+      <workItem from="1474471845371" duration="615000" />
+      <workItem from="1474503870569" duration="1992000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="160540000" />
+    <option name="totallyTimeSpent" value="163197000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -743,19 +746,19 @@
     <entry file="file://$PROJECT_DIR$/pentomino-hunter/image-picker-master/image-picker/image-picker.css" />
     <entry file="file://$PROJECT_DIR$/pentomino-hunter/image-picker-master/image-picker/image-picker.js" />
     <entry file="file://$PROJECT_DIR$/pentomino-hunter/image-picker-master/source/coffee/image-picker.coffee" />
-    <entry file="file://$PROJECT_DIR$/pentomino-hunter/grid.html">
+    <entry file="file://$PROJECT_DIR$/test.html" />
+    <entry file="file://$PROJECT_DIR$/pentomino-hunter/javascript/grid.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1649">
-          <caret line="97" column="31" selection-start-line="97" selection-start-column="31" selection-end-line="97" selection-end-column="31" />
+        <state relative-caret-position="289">
+          <caret line="65" column="28" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.html" />
-    <entry file="file://$PROJECT_DIR$/pentomino-hunter/javascript/grid.js">
+    <entry file="file://$PROJECT_DIR$/pentomino-hunter/grid.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="362" column="39" selection-start-line="362" selection-start-column="39" selection-end-line="362" selection-end-column="39" />
+        <state relative-caret-position="217">
+          <caret line="183" column="20" selection-start-line="183" selection-start-column="20" selection-end-line="183" selection-end-column="20" />
           <folding />
         </state>
       </provider>
